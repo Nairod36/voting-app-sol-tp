@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use crate::state::*;
 use crate::error::ErrorCode as AppErrorCode;
-use crate::contexts::*;
+use crate::{CreateProposal, CastVote, DeleteProposal};
 
 /// Logique métier pour créer une proposition
 pub fn create_proposal(

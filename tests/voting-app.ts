@@ -1,11 +1,17 @@
 import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import idl from "../target/idl/voting_app.json";
 import { expect } from "chai";
 
 describe("voting-app", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
-  const program = anchor.workspace.VotingApp as Program<any>;
+
+  // On crée explicitement le Program à partir de l’IDL
+  const program = new anchor.Program(
+    idl as any,
+    new anchor.web3.PublicKey((idl as any).metadata.address),
+    provider
+  );
 
   let proposalPda: anchor.web3.PublicKey;
   const creator = provider.wallet.publicKey;
@@ -74,7 +80,6 @@ describe("voting-app", () => {
   });
 
   it("Empêche le vote en dehors de la période", async () => {
-    // Avance l'horloge de 2 heures (cast en any)
     await (provider.connection as any).setBlockTime(
       Math.floor(Date.now() / 1000) + 2 * 60 * 60
     );
