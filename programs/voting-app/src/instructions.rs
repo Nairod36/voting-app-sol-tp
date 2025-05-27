@@ -3,7 +3,7 @@ use crate::state::*;
 use crate::error::ErrorCode as AppErrorCode;
 use crate::{CreateProposal, CastVote, DeleteProposal};
 
-/// Logique métier pour créer une proposition
+/// créer une proposition
 pub fn create_proposal(
     ctx: Context<CreateProposal>,
     description: String,
@@ -26,7 +26,7 @@ pub fn create_proposal(
     Ok(())
 }
 
-/// Logique métier pour voter
+/// pour voter
 pub fn cast_vote(
     ctx: Context<CastVote>,
     choice_index: u8,
@@ -46,7 +46,7 @@ pub fn cast_vote(
     Ok(())
 }
 
-/// Logique métier pour supprimer une proposition (après délai)
+/// supprimer une proposition (après délai)
 pub fn delete_proposal(
     ctx: Context<DeleteProposal>,
 ) -> Result<()> {
